@@ -6,35 +6,33 @@ import SuccessContent from "./components/SuccessContent";
 
 export default function App() {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState({
-    data: [],
-    status: 'loading',
-    error: ''
+  const [data, setData] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [error, setError] = useState([]);
+
+  const users = useGetUser(30).then(res => {
+    setData(res.data);
+    setStatus(res.status);
+    setError(res.error);
   });
-  const getUser = useGetUser(30);
 
   useEffect(() => {
-    if (users.status !== 'loading') return;
     handelUpdate();
-  });
+  }, []);
 
   const handelUpdate = async () => {
-    // await getUser(resp => console.log(resp))
-    getUser.then(resp => {
-      setUsers(resp);
-      dispatch(postUsers(resp.data))
-    });
+    dispatch(postUsers(data));
   };
 
-  switch (users.status) {
+  switch (status) {
     case "error":
-      return <div>{users.error}</div>;
+      return <div>{error}</div>;
     case "loading":
       return <div>loader</div>;
     case "success":
       return <SuccessContent handelUpdate={handelUpdate}/>;
     default:
-      return null;
+      return null;      
   }
 }
 

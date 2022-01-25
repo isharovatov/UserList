@@ -1,29 +1,30 @@
-const axios = require('axios');
+import { useEffect, useState } from 'react';
 
 async function useGetUser(value) {
-  try {
-    const response = await axios.get(`https://randomuser.me/api/?results=${value}`);
-    const data = response.data.results;
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('loading');
 
-    if (response.status === 200) 
-    return   {
-      data: data,
-      status: 'success',
-      error: '',
+  useEffect(() => {
+    const get = async () => {
+      const axios = require('axios');
+      try {
+        const users = await axios.get(`https://randomuser.me/api/?results=${value}`);
+        setData(users.data.results);
+        setStatus('success');
+        setError(null);
+      } catch (error) {
+        setData([]);
+        setStatus('error');
+        setError(error.response.data.error)
+      }
     }
-  } catch (error) {
-    return   {
-      data: null,
-      status: 'error',
-      error: error.response.data.error,
-    }
-  } 
+    get();
+  }, []);
 
-  return   {
-    data: [],
-    status: 'loading',
-    error: '',
-  } 
+  if (status === 'error' || status === 'success');
+
+  return {data, status, error};
 };
 
 export default useGetUser;

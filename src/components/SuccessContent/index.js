@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Modal from "../Modal";
 import UserContainer from "../UserContainer";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,10 @@ const SuccessContent = ({ handelUpdate }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [chooseItemIdx, setChooseItemIdx] = useState(-1);
   const reduxState = useSelector((state) => state.users.data);
+
+  useEffect(() => {
+    handelUpdate();
+  }, []);
 
   const handelInput = (e) => {
     setInputValue(e.target.value);
