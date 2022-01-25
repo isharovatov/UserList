@@ -4,16 +4,12 @@ import UserContainer from "../UserContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteUser, changeName } from "../../Redux/slice";
 
-const SuccessContent = ({ handelUpdate }) => {
+const SuccessContent = ({ reFetch }) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [chooseItemIdx, setChooseItemIdx] = useState(-1);
   const reduxState = useSelector((state) => state.users.data);
-
-  useEffect(() => {
-    handelUpdate();
-  }, []);
 
   const handelInput = (e) => {
     setInputValue(e.target.value);
@@ -42,7 +38,7 @@ const SuccessContent = ({ handelUpdate }) => {
     <div className="root">
       <button
         onClick={() => {
-          handelUpdate();
+          reFetch();
           clearSearch();
         }}
       >
