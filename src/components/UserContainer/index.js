@@ -5,8 +5,8 @@ const UserContainer = ({ item, idx, handelDelete, onOpenModal }) => {
   return (
     <div key={item.login.uuid} className="UserContainer">
       <img src={item.picture.thumbnail} alt="Avatar" />
-      <span onClick={() => handelDelete(item.login.uuid)}>удалить</span>
-      <span onClick={() => onOpenModal(item.name.first, idx)}>
+      <button onClick={() => handelDelete(item.login.uuid)}>удалить</button>
+      <span onClick={() => onOpenModal(item.login.uuid)}>
         {item.name.first}
       </span>
       <span>{item.email}</span>

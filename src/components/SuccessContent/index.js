@@ -8,7 +8,7 @@ const SuccessContent = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [chooseItemIdx, setChooseItemIdx] = useState(-1);
+  const [chooseItemIdx, setChooseItemIdx] = useState('');
   const users = useSelector((state) => state.store.list);
 
   const handelInput = (e) => {
@@ -20,12 +20,12 @@ const SuccessContent = () => {
   };
 
   const clearSearch = () => {
-    setChooseItemIdx(-1);
+    setChooseItemIdx('');
     setInputValue("");
   };
 
-  const onOpenModal = (name, idx) => {
-    setChooseItemIdx(idx);
+  const onOpenModal = (id) => {
+    setChooseItemIdx(id);
     setIsOpenModal(true);
   };
 
@@ -34,16 +34,14 @@ const SuccessContent = () => {
     setIsOpenModal(false)
   };
 
+  const onRefresh = () => {
+    dispatch(getAllItem());
+    clearSearch();
+  }
+
   return (
     <div className="root">
-      <button
-        onClick={() => {
-          dispatch(getAllItem());
-          clearSearch();
-        }}
-      >
-        загрузить еще
-      </button>
+      <button onClick={onRefresh}>загрузить еще</button>
       <input value={inputValue} onInput={(e) => handelInput(e)} />
       {users?.map((item, idx) => {
         if (item?.name?.first.toLowerCase().includes(inputValue.toLowerCase()))
@@ -59,9 +57,9 @@ const SuccessContent = () => {
       })}
       <Modal
         isOpen={isOpenModal}
-        value={users?.[chooseItemIdx]?.name.first}
+        value={users.filter(item => item.login.uuid === chooseItemIdx)?.[0]?.name.first}
         onClose={() => setIsOpenModal(false)}
-        onContinue={(name) => onContinue(users?.[chooseItemIdx], name)}
+        onContinue={(name) => onContinue(users.filter(item => item.login.uuid === chooseItemIdx)?.[0], name)}
       />
     </div>
   );

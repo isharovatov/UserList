@@ -1,5 +1,5 @@
 import {TODO_TYPE} from "./contains";
-import {get} from "../../service/service"
+import {get} from "./service"
 
 export const getAllItem = () => async (dispatch) => {
     try {

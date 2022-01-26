@@ -10,6 +10,8 @@ const Modal = ({ isOpen, onClose, onContinue, value }) => {
   const OutsideClick = useOutsideClick;
   const modalRef = useRef(null);
 
+  console.log(value);
+
   if (!isOpen) return null;
 
   const myGreeting = setTimeout(() => {
