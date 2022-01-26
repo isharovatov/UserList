@@ -28,7 +28,6 @@ function useGetUser(value) {
   }, []);
 
   useEffect(() => {
-    console.log(status, data);
     if (status === 'success') {
       dispatch(postUsers(data));
     }

@@ -1,15 +1,15 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import Modal from "../Modal";
 import UserContainer from "../UserContainer";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteUser, changeName } from "../../Redux/slice";
+import {deleteUser, changeName, getAllItem} from '../../Redux/nameStore/action'
 
-const SuccessContent = ({ reFetch }) => {
+const SuccessContent = () => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [chooseItemIdx, setChooseItemIdx] = useState(-1);
-  const reduxState = useSelector((state) => state.users.data);
+  const users = useSelector((state) => state.store.list);
 
   const handelInput = (e) => {
     setInputValue(e.target.value);
@@ -30,7 +30,7 @@ const SuccessContent = ({ reFetch }) => {
   };
 
   const onContinue = (item, name) => {
-    dispatch(changeName({user: item, newName: name}));
+    dispatch(changeName({id: item.login.uuid, newName: name}));
     setIsOpenModal(false)
   };
 
@@ -38,14 +38,14 @@ const SuccessContent = ({ reFetch }) => {
     <div className="root">
       <button
         onClick={() => {
-          reFetch();
+          dispatch(getAllItem());
           clearSearch();
         }}
       >
         загрузить еще
       </button>
       <input value={inputValue} onInput={(e) => handelInput(e)} />
-      {reduxState?.map((item, idx) => {
+      {users?.map((item, idx) => {
         if (item?.name?.first.toLowerCase().includes(inputValue.toLowerCase()))
           return (
             <UserContainer
@@ -59,9 +59,9 @@ const SuccessContent = ({ reFetch }) => {
       })}
       <Modal
         isOpen={isOpenModal}
-        value={reduxState?.[chooseItemIdx]?.name.first}
+        value={users?.[chooseItemIdx]?.name.first}
         onClose={() => setIsOpenModal(false)}
-        onContinue={(name) => onContinue(reduxState?.[chooseItemIdx], name)}
+        onContinue={(name) => onContinue(users?.[chooseItemIdx], name)}
       />
     </div>
   );
