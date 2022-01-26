@@ -8,7 +8,14 @@ import store from './Redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 
-const store1 = createStore(store, applyMiddleware(thunk));
+const logger = () => {
+  return next => action => {
+    if (action.type === 'delete_user') console.log(action.payload);
+    return next(action)
+  }
+}
+
+const store1 = createStore(store, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <React.StrictMode>
