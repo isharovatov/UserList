@@ -11,7 +11,7 @@ const SuccessContent = () => {
   const [inputValue, setInputValue] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [chooseItemIdx, setChooseItemIdx] = useState('');
-  const users = useSelector((state:RootState) => state.store.list);
+  const users = useSelector((state:RootState) => state.list);
 
   const handelInput = (e: React.FormEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);

@@ -1,28 +1,19 @@
 import {TODO_TYPE} from "./contains";
 import {get} from "./service"
+import {createAsyncThunk} from '@reduxjs/toolkit'
 
 interface changeNameInterfece {
     id: string;
     newName: string;
-}
-
-export const getAllItem = () => async (dispatch: any) => {
-    try {
-        dispatch({
-            type: TODO_TYPE.GET_ALL_ITEM.START
-        })
-        const list = await get()
-        dispatch({
-            type: TODO_TYPE.GET_ALL_ITEM.SUCCESS,
-            payload: list
-        })
-    } catch (e: any) {
-        dispatch({
-            type: TODO_TYPE.GET_ALL_ITEM.ERROR,
-            payload: e.response.data.error
-        })
-    }
 };
+
+export const getAllItem = createAsyncThunk(
+    'todo_task_start',
+    async () => {
+      const response = await get();
+      return response;
+    }
+  );
 
 export const deleteUser = (deleteId: string) => ({
     type: TODO_TYPE.DELETE_USER,

@@ -1,12 +1,10 @@
-import nameStore from "./nameStore"
-import {combineReducers, createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk';
-import { logger } from './middleaware';
+import nameStore from './nameStore'
+import {configureStore} from '@reduxjs/toolkit'
 
-const store = createStore(combineReducers({store: nameStore}), applyMiddleware(thunk, logger))
+const store = configureStore({
+  reducer: nameStore,
+});
 
 export type RootState = ReturnType<typeof store.getState>
 
 export default store
-
-// export default createStore(combineReducers({store}), applyMiddleware(thunk, logger));

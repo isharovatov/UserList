@@ -6,8 +6,9 @@ import { RootState } from "./Redux/index";
 
 export default function App(): any {
   const dispatch = useDispatch();
-  const status = useSelector((state:RootState) => state.store.status);
-  const error = useSelector((state:RootState) => state.store.error);
+  const store = useSelector((state:RootState) => state);
+  const status = useSelector((state:RootState) => state.status);
+  const error = useSelector((state:RootState) => state.error);  
 
   useEffect(() => {
     dispatch(getAllItem());
