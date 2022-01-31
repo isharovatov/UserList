@@ -1,5 +1,5 @@
-const useOutsideClick = (isOpen, ref, action) => {
-  const eventFunc = (e) => {
+const useOutsideClick = (isOpen: boolean, ref: any, action: any) => {
+  const eventFunc = (e: any) => {    
     if (!ref.current?.contains(e.target)) {
       action();
     }

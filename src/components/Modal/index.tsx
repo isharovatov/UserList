@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, FC } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
+import { ModalInterfece } from "../../types/ContainerTypes";
 import useOutsideClick from "../../Hooks/outsideClick";
 
-const Modal = ({ isOpen, onClose, onContinue, value }) => {
+const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, value }) => {
   const [changingValue, setChangingValue] = useState("");
   const [error, setError] = useState("");
   const [firstRender, setFirstRender] = useState(true);
@@ -19,10 +20,10 @@ const Modal = ({ isOpen, onClose, onContinue, value }) => {
     }
   }, 0);
 
-  const handelInput = (e) => {
-    if (!e.target.value) setError("Имя не можеть быть пустым");
+  const handelInput = (e: React.FormEvent<HTMLInputElement>) => {
+    if (!e.currentTarget.value) setError("Имя не можеть быть пустым");
     else setError("");
-    setChangingValue(e.target.value);
+    setChangingValue(e.currentTarget.value);
   };
 
   const handelClose = () => {
@@ -50,14 +51,14 @@ const Modal = ({ isOpen, onClose, onContinue, value }) => {
         </button>
         <span className="text">Хотите изменить имя?</span>
         <input value={changingValue} onInput={(e) => handelInput(e)} />
-        {!error.lenght && <div className="error">{error}</div>}
+        {!error.length && <div className="error">{error}</div>}
         <div className="buttons">
           <button onClick={() => handelClose()}>Отмена</button>
           <button onClick={() => handelContinue()}>Продолжить</button>
         </div>
       </div>
     </div>,
-    document.getElementById("portal")
+    document.getElementById("portal")!
   );
 };
 

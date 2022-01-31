@@ -1,7 +1,12 @@
 import {TODO_TYPE} from "./contains";
 import {get} from "./service"
 
-export const getAllItem = () => async (dispatch) => {
+interface changeNameInterfece {
+    id: string;
+    newName: string;
+}
+
+export const getAllItem = () => async (dispatch: any) => {
     try {
         dispatch({
             type: TODO_TYPE.GET_ALL_ITEM.START
@@ -11,20 +16,20 @@ export const getAllItem = () => async (dispatch) => {
             type: TODO_TYPE.GET_ALL_ITEM.SUCCESS,
             payload: list
         })
-    } catch (e) {
+    } catch (e: any) {
         dispatch({
             type: TODO_TYPE.GET_ALL_ITEM.ERROR,
-            payload: e.response.status
+            payload: e.response.data.error
         })
     }
 };
 
-export const deleteUser = (deleteId) => ({
+export const deleteUser = (deleteId: string) => ({
     type: TODO_TYPE.DELETE_USER,
     payload: deleteId
 });
 
-export const changeName = (data) => ({
+export const changeName = (data: changeNameInterfece) => ({
     type: TODO_TYPE.CHANGE_NAME,
     payload: {data}
 });
