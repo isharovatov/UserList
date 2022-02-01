@@ -1,7 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
+import { UserContainerInterfece } from "../../types/ContainerTypes";
 import './UserContainer.css'
 
-const UserContainer = ({ item, idx, handelDelete, onOpenModal }) => {
+const UserContainer: FC<UserContainerInterfece> = ({ item, handelDelete, onOpenModal }: UserContainerInterfece ) => {
+
   return (
     <div key={item.login.uuid} className="UserContainer">
       <img src={item.picture.thumbnail} alt="Avatar" />
