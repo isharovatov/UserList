@@ -10,16 +10,25 @@ const initialState: initialStateInterfece = {
     
 const todosReducer = createReducer(initialState, (builder) => {
     builder
+
     .addCase('todo_task_start/pending', (state, action: actionInterfece) => {    
         return {...state, status: 'loading'}
     })
-
     .addCase('todo_task_start/fulfilled', (state, action: actionInterfece) => {    
         return {...state, status: 'success', list: action.payload}
     })
-
     .addCase('todo_task_start/rejected', (state, action: actionInterfece) => {    
-        return {...state, status: 'loading', error: action.payload}
+        return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase('get_user/pending', (state, action: actionInterfece) => {    
+        return {...state, status: 'loading'}
+    })
+    .addCase('get_user/fulfilled', (state, action: actionInterfece) => {    
+        return {...state, status: 'success', list: action.payload}
+    })
+    .addCase('get_user/rejected', (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
     })
 
     .addCase(TODO_TYPE.DELETE_USER, (state, action: actionInterfece) => {

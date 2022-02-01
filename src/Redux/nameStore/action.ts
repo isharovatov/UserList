@@ -1,5 +1,5 @@
 import {TODO_TYPE} from "./contains";
-import {get} from "./service"
+import {getAllUsers, getUser} from "./service"
 import {createAsyncThunk} from '@reduxjs/toolkit'
 
 interface changeNameInterfece {
@@ -8,12 +8,20 @@ interface changeNameInterfece {
 };
 
 export const getAllItem = createAsyncThunk(
-    'todo_task_start',
-    async () => {
-      const response = await get();
-      return response;
-    }
-  );
+  'todo_task_start',
+  async () => {
+    const response = await getAllUsers();
+    return response;
+  }
+);
+
+export const getItem = createAsyncThunk(
+  'get_user',
+  async (query: number) => {
+    const response = await getUser(query);
+    return response;
+  }
+);
 
 export const deleteUser = (deleteId: string) => ({
     type: TODO_TYPE.DELETE_USER,
