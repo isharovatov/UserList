@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import SuccessContent from "./components/SuccessContent";
 import {useDispatch, useSelector } from "react-redux";
-import {getAllItem} from './Redux/nameStore/action'
+import {getAllItem, getItem} from './Redux/nameStore/action'
 import { RootState } from "./Redux/index";
 
 export default function App(): any {
   const dispatch = useDispatch();
   const store = useSelector((state:RootState) => state);
   const status = useSelector((state:RootState) => state.status);
-  const error = useSelector((state:RootState) => state.error);  
+  const error = useSelector((state:RootState) => state.error);
+  console.log(store);
 
   useEffect(() => {
     dispatch(getAllItem());
+    dispatch(getItem(2))
   }, []);
 
   switch (status) {

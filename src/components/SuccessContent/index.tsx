@@ -11,7 +11,7 @@ const SuccessContent = () => {
   const [inputValue, setInputValue] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [chooseItemIdx, setChooseItemIdx] = useState('');
-  const users = useSelector((state:RootState) => state.list);
+  const users = useSelector((state:RootState) => state.list);  
 
   const handelInput = (e: React.FormEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
@@ -32,7 +32,7 @@ const SuccessContent = () => {
   };
 
   const onContinue = (item: any, name: string) => {
-    dispatch(changeName({id: item.login.uuid, newName: name}));
+    dispatch(changeName({id: item.userId, newName: name}));
     setIsOpenModal(false)
   };
 
@@ -46,21 +46,21 @@ const SuccessContent = () => {
       <button onClick={onRefresh}>загрузить еще</button>
       <input value={inputValue} onInput={(e) => handelInput(e)} />
       {users?.map((item: any) => {
-        if (item?.name?.first.toLowerCase().includes(inputValue.toLowerCase()))
+        if (item?.firstname.toLowerCase().includes(inputValue.toLowerCase()))
           return (
             <UserContainer
               item={item}
               handelDelete={handelDelete}
               onOpenModal={onOpenModal}
-              key={item.login.uuid}
+              key={item.id}
             />
           );
       })}
       <Modal
         isOpen={isOpenModal}
-        value={users.filter((item: any) => item.login.uuid === chooseItemIdx)?.[0]?.name.first}
+        value={users.filter((item: any) => item.userId === chooseItemIdx)?.[0]?.name.first}
         onClose={() => setIsOpenModal(false)}
-        onContinue={(name: string) => onContinue(users.filter((item: any) => item.login.uuid === chooseItemIdx)?.[0], name)}
+        onContinue={(name: string) => onContinue(users.filter((item: any) => item.userId === chooseItemIdx)?.[0], name)}
       />
     </div>
   );
