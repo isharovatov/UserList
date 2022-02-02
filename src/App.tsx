@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import SuccessContent from "./components/SuccessContent";
 import {useDispatch, useSelector } from "react-redux";
-import {getAllItem, getItem} from './Redux/nameStore/action'
+import {getAllItem, getItem, getLimitItem} from './Redux/nameStore/action'
 import { RootState } from "./Redux/index";
 
 export default function App(): any {
@@ -13,7 +13,8 @@ export default function App(): any {
 
   useEffect(() => {
     dispatch(getAllItem());
-    dispatch(getItem(2))
+    dispatch(getItem(2));
+    dispatch(getLimitItem({limit: 3, offset:0}))
   }, []);
 
   switch (status) {

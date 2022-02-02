@@ -11,24 +11,50 @@ const initialState: initialStateInterfece = {
 const todosReducer = createReducer(initialState, (builder) => {
     builder
 
-    .addCase('todo_task_start/pending', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_ALL_ITEM.START, (state, action: actionInterfece) => {    
         return {...state, status: 'loading'}
     })
-    .addCase('todo_task_start/fulfilled', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_ALL_ITEM.SUCCESS, (state, action: actionInterfece) => {    
         return {...state, status: 'success', list: action.payload}
     })
-    .addCase('todo_task_start/rejected', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_ALL_ITEM.ERROR, (state, action: actionInterfece) => {    
         return {...state, status: 'error', error: action.payload}
     })
 
-    .addCase('get_user/pending', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_QUERY_ITEM.START, (state, action: actionInterfece) => {    
         return {...state, status: 'loading'}
     })
-    .addCase('get_user/fulfilled', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_QUERY_ITEM.SUCCESS, (state, action: actionInterfece) => {    
         return {...state, status: 'success', list: action.payload}
     })
-    .addCase('get_user/rejected', (state, action: actionInterfece) => {    
+    .addCase(TODO_TYPE.GET_QUERY_ITEM.ERROR, (state, action: actionInterfece) => {    
         return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase(TODO_TYPE.GET_LIMIT_ITEM.START, (state, action: actionInterfece) => {    
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.GET_LIMIT_ITEM.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success', list: action.payload}
+    })
+    .addCase(TODO_TYPE.GET_LIMIT_ITEM.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase(TODO_TYPE.POST_ADD_USER.START, (state, action: actionInterfece) => {
+        console.log(state, action);
+        
+        // return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.POST_ADD_USER.SUCCESS, (state, action: actionInterfece) => {   
+        console.log(state, action);
+ 
+        // return {...state, status: 'success', list: action.payload}
+    })
+    .addCase(TODO_TYPE.POST_ADD_USER.ERROR, (state, action: actionInterfece) => {    
+        console.log(state, action);
+
+        // return {...state, status: 'error', error: action.payload}
     })
 
     .addCase(TODO_TYPE.DELETE_USER, (state, action: actionInterfece) => {
