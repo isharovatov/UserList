@@ -42,40 +42,63 @@ const todosReducer = createReducer(initialState, (builder) => {
     })
 
     .addCase(TODO_TYPE.POST_ADD_USER.START, (state, action: actionInterfece) => {
-        console.log(state, action);
-        
-        // return {...state, status: 'loading'}
+        return {...state, status: 'loading'}
     })
-    .addCase(TODO_TYPE.POST_ADD_USER.SUCCESS, (state, action: actionInterfece) => {   
-        console.log(state, action);
- 
-        // return {...state, status: 'success', list: action.payload}
+    .addCase(TODO_TYPE.POST_ADD_USER.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
     })
     .addCase(TODO_TYPE.POST_ADD_USER.ERROR, (state, action: actionInterfece) => {    
-        console.log(state, action);
-
-        // return {...state, status: 'error', error: action.payload}
+        return {...state, status: 'error', error: action.payload}
     })
 
-    .addCase(TODO_TYPE.DELETE_USER, (state, action: actionInterfece) => {
-        const newList = state.list.filter((item: any) => item.login.uuid !== action.payload);
-        return {...state, list: newList}
+    .addCase(TODO_TYPE.POST_DELETE_USER.START, (state, action: actionInterfece) => {
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.POST_DELETE_USER.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
+    })
+    .addCase(TODO_TYPE.POST_DELETE_USER.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
     })
 
-    .addCase(TODO_TYPE.CHANGE_NAME, (state, action: actionInterfece) => {
-        const newList = state.list.map((item: any) => {
-            if (item.login.uuid === action.payload.data.id) {
-              return {
-                ...item,
-                 name: {
-                  ...item.name,
-                  first: action.payload.data.newName
-                 }
-              }
-            } 
-            return item;
-          })
-          return {...state, list: newList}
+    .addCase(TODO_TYPE.POST_EDIT_USER.START, (state, action: actionInterfece) => {
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.POST_EDIT_USER.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
+    })
+    .addCase(TODO_TYPE.POST_EDIT_USER.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase(TODO_TYPE.POST_UPLOAD_IMAGE.START, (state, action: actionInterfece) => {
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.POST_UPLOAD_IMAGE.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
+    })
+    .addCase(TODO_TYPE.POST_UPLOAD_IMAGE.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase(TODO_TYPE.GET_IMAGE.START, (state, action: actionInterfece) => {
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.GET_IMAGE.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
+    })
+    .addCase(TODO_TYPE.GET_IMAGE.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
+    })
+
+    .addCase(TODO_TYPE.AUTH.START, (state, action: actionInterfece) => {
+        return {...state, status: 'loading'}
+    })
+    .addCase(TODO_TYPE.AUTH.SUCCESS, (state, action: actionInterfece) => {    
+        return {...state, status: 'success'}
+    })
+    .addCase(TODO_TYPE.AUTH.ERROR, (state, action: actionInterfece) => {    
+        return {...state, status: 'error', error: action.payload}
     })
 })
 

@@ -1,11 +1,6 @@
-import {TODO_TYPE} from "./contains";
-import {getAllUsers, getUser, getLimitUser, addUser} from "./service"
-import {createAsyncThunk} from '@reduxjs/toolkit'
-
-interface changeNameInterfece {
-    id: string;
-    newName: string;
-};
+import { getAllUsers, getUser, getLimitUser, addUser, deleteUser, editUser, uploadImg, getImg, auth } from './service';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { userInterfece, changesNameInterfece, getLimitUserInterfece } from '../../types/ContainerTypes';
 
 export const getAllItem = createAsyncThunk(
   'get_all_users',
@@ -25,26 +20,59 @@ export const getItem = createAsyncThunk(
 
 export const getLimitItem = createAsyncThunk(
   'get_limit_users',
-  async (data: any) => {
+  async (data: getLimitUserInterfece) => {
     const response = await getLimitUser(data);
     return response;
   }
 );
+
 export const addItem = createAsyncThunk(
   'post_add_user',
-  async (data: any) => {
+  async (data: userInterfece) => {    
     const response = await addUser(data);
     return response;
   }
 );
 
+export const deleteItem = createAsyncThunk(
+  'post_delete_user',
+  async (userId: string) => {
+    const response = await deleteUser(userId);
+    return response;
+  }
+);
 
-export const deleteUser = (deleteId: string) => ({
-    type: TODO_TYPE.DELETE_USER,
-    payload: deleteId
-});
+export const editItem = createAsyncThunk(
+  'post_edit_user',
+  async (data: changesNameInterfece) => {    
+    const response = await editUser(data);
+    return response;
+  }
+);
 
-export const changeName = (data: changeNameInterfece) => ({
-    type: TODO_TYPE.CHANGE_NAME,
-    payload: {data}
-});
+export const uploadImage = createAsyncThunk(
+  'post_upload_image',
+  async (data: any) => {
+    console.log(data);
+    const response = await uploadImg(data);
+    console.log(response);
+    
+    return response;
+  }
+);
+
+export const getImage = createAsyncThunk(
+  'get_image',
+  async (data: any) => {
+    const response = await getImg(data);
+    return response;
+  }
+);
+
+export const authItem = createAsyncThunk(
+  'get_image',
+  async (data: any) => {
+    const response = await auth(data);
+    return response;
+  }
+);

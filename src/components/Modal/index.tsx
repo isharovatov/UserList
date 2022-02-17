@@ -4,10 +4,12 @@ import "./Modal.css";
 import { ModalInterfece } from "../../types/ContainerTypes";
 import useOutsideClick from "../../Hooks/outsideClick";
 
-const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, value }) => {
-  const [changingValue, setChangingValue] = useState("");
+const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, firstname, lastname }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [firstRender, setFirstRender] = useState(true);
+
   const OutsideClick = useOutsideClick;
   const modalRef = useRef(null);
 
@@ -15,15 +17,16 @@ const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, value }) => {
 
   const myGreeting = setTimeout(() => {
     if (firstRender) {
-      setChangingValue(value);
+      setFirstName(firstname);
+      setLastName(lastname)
       setFirstRender(false);
     }
   }, 0);
 
-  const handelInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const handelInput = (e: React.FormEvent<HTMLInputElement>, setValue: any) => {
     if (!e.currentTarget.value) setError("Имя не можеть быть пустым");
     else setError("");
-    setChangingValue(e.currentTarget.value);
+    setValue(e.currentTarget.value);
   };
 
   const handelClose = () => {
@@ -37,7 +40,7 @@ const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, value }) => {
     {
       setError('');
       setFirstRender(true);
-      onContinue(changingValue);
+      onContinue(firstName, lastName);
     }
   };
 
@@ -50,7 +53,8 @@ const Modal: FC<ModalInterfece> = ({ isOpen, onClose, onContinue, value }) => {
           x
         </button>
         <span className="text">Хотите изменить имя?</span>
-        <input value={changingValue} onInput={(e) => handelInput(e)} />
+        <input value={firstName} onInput={(e) => handelInput(e, setFirstName)} />
+        <input value={lastName} onInput={(e) => handelInput(e, setLastName)} />
         {!error.length && <div className="error">{error}</div>}
         <div className="buttons">
           <button onClick={() => handelClose()}>Отмена</button>

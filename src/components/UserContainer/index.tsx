@@ -7,7 +7,7 @@ const UserContainer: FC<UserContainerInterfece> = ({ item, handelDelete, onOpenM
   return (
     <div key={item.userId} className="UserContainer">
       <img src={item.picture} alt="Avatar" />
-      <button onClick={() => handelDelete(item.userId)}>удалить</button>
+      <button onClick={() => handelDelete(item.id)}>удалить</button>
       <span onClick={() => onOpenModal(item.userId)}>
         {item.firstname}
       </span>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from "react";
 import SuccessContent from "./components/SuccessContent";
 import {useDispatch, useSelector } from "react-redux";
@@ -9,12 +10,13 @@ export default function App(): any {
   const store = useSelector((state:RootState) => state);
   const status = useSelector((state:RootState) => state.status);
   const error = useSelector((state:RootState) => state.error);
-  console.log(store);
+
 
   useEffect(() => {
     dispatch(getAllItem());
-    dispatch(getItem(2));
-    dispatch(getLimitItem({limit: 3, offset:0}))
+    // dispatch(getItem(2));
+    // dispatch(getLimitItem({limit: 3, offset:0}))
+    
   }, []);
 
   switch (status) {
